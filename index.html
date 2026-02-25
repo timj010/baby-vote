@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Baby Gender Guess ðŸ¼</title>
+<title>Baby Gender Guess 🍼</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -174,42 +174,42 @@
 
   <!-- SCREEN 1: Name entry -->
   <div id="screen-name" class="screen">
-    <span class="emoji">ðŸ¼</span>
+    <span class="emoji">🍼</span>
     <h1>Boy or Girl?</h1>
     <p class="subtitle">What's your name?</p>
     <input
       class="name-input"
       id="name-input"
       type="text"
-      placeholder="Enter your nameâ€¦"
+      placeholder="Enter your name…"
       maxlength="40"
       autocomplete="off"
       oninput="onNameInput()"
       onkeydown="if(event.key==='Enter') submitName()"
     />
     <button class="btn-continue" id="btn-continue" onclick="submitName()" disabled>
-      Continue â†’
+      Continue →
     </button>
   </div>
 
   <!-- SCREEN 2: Vote -->
   <div id="screen-vote" class="screen" style="display:none;">
-    <span class="emoji">ðŸ¼</span>
+    <span class="emoji">🍼</span>
     <h1>Boy or Girl?</h1>
     <p class="subtitle" id="vote-subtitle">Cast your vote!</p>
     <div class="choices">
       <button class="btn btn-boy" onclick="vote('boy')">
-        <span class="btn-emoji">ðŸ‘¦</span> Boy
+        <span class="btn-emoji">👦</span> Boy
       </button>
       <button class="btn btn-girl" onclick="vote('girl')">
-        <span class="btn-emoji">ðŸ‘§</span> Girl
+        <span class="btn-emoji">👧</span> Girl
       </button>
     </div>
   </div>
 
   <!-- SCREEN 3: Results -->
   <div id="screen-results" class="screen" style="display:none;">
-    <span class="emoji">ðŸ¼</span>
+    <span class="emoji">🍼</span>
     <h1>Boy or Girl?</h1>
 
     <div class="voted-badge" id="voted-badge"></div>
@@ -244,7 +244,7 @@
     "Content-Type": "application/json"
   };
 
-  // â”€â”€ API helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── API helpers ──────────────────────────────────────────────
   async function fetchVotes() {
     const res = await fetch(`${SUPABASE_URL}/rest/v1/votes?id=eq.main&select=boy,girl`, { headers });
     const d = await res.json();
@@ -278,7 +278,7 @@
     return res.json();
   }
 
-  // â”€â”€ UI helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── UI helpers ───────────────────────────────────────────────
   function showScreen(id) {
     ['screen-name','screen-vote','screen-results'].forEach(s => {
       const el = document.getElementById(s);
@@ -303,7 +303,7 @@
       item.className = 'feed-item';
       item.innerHTML = `
         <span class="feed-name">${escHtml(b.name)}</span>
-        <span class="feed-choice ${b.choice}">${b.choice === 'boy' ? 'ðŸ‘¦ Boy' : 'ðŸ‘§ Girl'}</span>
+        <span class="feed-choice ${b.choice}">${b.choice === 'boy' ? '👦 Boy' : '👧 Girl'}</span>
         <span class="feed-time">${timeAgo(b.created_at)}</span>
       `;
       feed.appendChild(item);
@@ -321,7 +321,7 @@
     const girlPct = total ? 100 - boyPct : 0;
 
     document.getElementById('voted-badge').textContent =
-      `You voted: ${choice === 'boy' ? 'Boy' : 'Girl'} âœ“`;
+      `You voted: ${choice === 'boy' ? 'Boy' : 'Girl'} ✓`;
     document.getElementById('pct-boy').textContent   = boyPct  + '%';
     document.getElementById('pct-girl').textContent  = girlPct + '%';
     document.getElementById('tally-note').textContent =
@@ -335,7 +335,7 @@
     renderFeed(ballots);
   }
 
-  // â”€â”€ Name screen â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Name screen ──────────────────────────────────────────────
   function onNameInput() {
     const val = document.getElementById('name-input').value.trim();
     document.getElementById('btn-continue').disabled = val.length === 0;
@@ -348,7 +348,7 @@
 
     const prior = localStorage.getItem(VOTED_KEY);
     if (prior) {
-      // Already voted â€” skip straight to results
+      // Already voted — skip straight to results
       loadAndShowResults(prior);
     } else {
       document.getElementById('vote-subtitle').textContent =
@@ -357,7 +357,7 @@
     }
   }
 
-  // â”€â”€ Vote â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Vote ─────────────────────────────────────────────────────
   async function vote(choice) {
     if (localStorage.getItem(VOTED_KEY)) return;
     const name = localStorage.getItem(NAME_KEY) || 'Anonymous';
@@ -384,9 +384,9 @@
     showResults(choice, votes, ballots);
   }
 
-  // â”€â”€ Init â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Init ─────────────────────────────────────────────────────
   window.addEventListener('DOMContentLoaded', () => {
-    // Always start at name screen â€” name pre-fills if known
+    // Always start at name screen — name pre-fills if known
     const savedName = localStorage.getItem(NAME_KEY);
     if (savedName) {
       document.getElementById('name-input').value = savedName;
