@@ -424,12 +424,18 @@
 
   // ── On Load: Restore State ──
   window.addEventListener('DOMContentLoaded', async () => {
+    // Clear old v1 keys from previous version of the app
+    localStorage.removeItem('baby-gender-my-vote-v1');
+
     const priorName = localStorage.getItem(NAME_KEY);
     const priorVote = localStorage.getItem(VOTED_KEY);
 
     if (priorName && priorVote) {
+      // Already voted — skip straight to results
       userName = priorName;
       document.getElementById('step-name').classList.remove('active');
+      // Hide vote buttons entirely
+      document.getElementById('step-vote').classList.remove('active');
       document.querySelectorAll('.btn').forEach(b => b.disabled = true);
 
       try {
@@ -441,11 +447,13 @@
         showResults(priorVote, []);
       }
     } else if (priorName) {
+      // Has name but hasn't voted yet — go to vote step
       userName = priorName;
       document.getElementById('step-name').classList.remove('active');
       document.getElementById('step-vote').classList.add('active');
       document.getElementById('greeting').textContent = `Hi ${userName}, what's your guess?`;
     }
+    // Otherwise: fresh user, step-name is already active
   });
 </script>
 </body>
